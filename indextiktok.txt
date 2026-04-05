@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Fora do Script | Atividades que Engajam</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1706639066543313');
+    fbq('track', 'PageView');
+    </script>
+    <noscript>
+    <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1706639066543313&ev=PageView&noscript=1"/>
+    </noscript>
+    <!-- End Meta Pixel Code -->
+
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              fontFamily: {
+                sans: ['Inter', 'sans-serif'],
+                mono: ['Fira Code', 'monospace'],
+              },
+              colors: {
+                'bg-dark': '#0D0D0D',
+                'primary': '#A855F7',
+                'secondary': '#EC4899',
+                'text-main': '#FFFFFF',
+                'text-muted': '#71717A',
+                'text-subtle': '#52525B',
+              }
+            }
+          }
+        }
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background-color: #0D0D0D;
+            color: #FFFFFF;
+            overflow-x: hidden;
+        }
+
+        /* Top Marquee Animation */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .animate-marquee {
+            animation: marquee 20s linear infinite;
+            display: flex;
+            width: max-content;
+        }
+
+        /* Floating Blobs Animation */
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.25;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        /* Scroll Animation Classes */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Border Animation for Quote Box */
+        @keyframes borderRotate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .gradient-border-box {
+            position: relative;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 2rem;
+            z-index: 1;
+        }
+
+        .gradient-border-box::before {
+            content: "";
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, #A855F7, #EC4899, #A855F7);
+            background-size: 200% 200%;
+            border-radius: 2.1rem;
+            z-index: -1;
+            animation: borderRotate 4s linear infinite;
+            opacity: 0.5;
+        }
+
+        /* Glow effects */
+        .headline-glow {
+            text-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
+        }
+
+        .dor-glow {
+            text-shadow: 0 0 15px rgba(168, 85, 247, 0.7);
+        }
+
+        /* Pulse Text */
+        @keyframes pulse-text {
+            0%, 100% { opacity: 1; filter: brightness(1); }
+            50% { opacity: 0.8; filter: brightness(1.2); }
+        }
+        .animate-pulse-text {
+            animation: pulse-text 3s ease-in-out infinite;
+        }
+
+        /* Button Wow Effect */
+        .cta-wow {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(to right, #A855F7, #EC4899);
+            animation: pulse-glow 2s infinite;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .cta-wow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 10px rgba(168, 85, 247, 0.4), 0 0 15px rgba(236, 72, 153, 0.4); }
+            50% { box-shadow: 0 0 25px rgba(168, 85, 247, 0.8), 0 0 35px rgba(236, 72, 153, 0.8); }
+            100% { box-shadow: 0 0 10px rgba(168, 85, 247, 0.4), 0 0 15px rgba(236, 72, 153, 0.4); }
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        .cta-wow:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 35px rgba(168, 85, 247, 0.9), 0 0 50px rgba(236, 72, 153, 0.9) !important;
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #A855F7, #EC4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* TikTok Glitch */
+        .tiktok-glitch {
+            position: relative;
+            display: inline-block;
+            color: #FFFFFF;
+            z-index: 1;
+        }
+
+        .tiktok-glitch::before,
+        .tiktok-glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.9;
+        }
+
+        .tiktok-glitch::before {
+            color: #00F2EA;
+            animation: tiktok-glitch-cyan 0.4s infinite cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .tiktok-glitch::after {
+            color: #FF0050;
+            animation: tiktok-glitch-pink 0.4s infinite cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse;
+        }
+
+        @keyframes tiktok-glitch-cyan {
+            0% { transform: translate(0); }
+            25% { transform: translate(-2px, 1px); }
+            50% { transform: translate(-1px, -1px); }
+            75% { transform: translate(1px, 1px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes tiktok-glitch-pink {
+            0% { transform: translate(0); }
+            25% { transform: translate(2px, -1px); }
+            50% { transform: translate(1px, 1px); }
+            75% { transform: translate(-1px, -1px); }
+            100% { transform: translate(0); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            opacity: 1;
+            margin-top: 1rem;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .faq-item.active i {
+            transform: rotate(180deg);
+        }
+
+        /* Search Bar Hover Styles */
+        .search-bar-premium {
+            background: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .search-bar-premium:hover {
+            border-color: #A855F7;
+            transform: translateX(5px);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+        }
+
+        /* Problem Section Cards Hover */
+        .card-problem-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-problem-hover:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+            border-color: #EC4899;
+        }
+
+        /* PRODUCT TITLE ANIMATIONS */
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes neonPulse {
+            0%, 100% { text-shadow: 0 0 20px rgba(168, 85, 247, 0.5); }
+            50% { text-shadow: 0 0 40px rgba(236, 72, 153, 0.8), 0 0 10px rgba(0, 245, 255, 0.5); }
+        }
+
+        .product-title-gradient {
+            background: linear-gradient(90deg, #00F5FF, #A855F7, #EC4899, #FF6B6B);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientMove 5s ease infinite, neonPulse 3s ease-in-out infinite;
+        }
+
+        /* CAROUSEL UTILS */
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .carousel-container {
+            scroll-snap-type: x mandatory;
+        }
+        .carousel-item {
+            scroll-snap-align: center;
+        }
+        
+        .active-dot {
+            background: linear-gradient(to right, #A855F7, #EC4899);
+            width: 1.5rem;
+        }
+
+        /* Lightbox system */
+        #lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+        #lightbox.active {
+            display: flex;
+        }
+
+        #lightbox-img {
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: scale(0.9);
+            opacity: 0;
+        }
+        #lightbox.active #lightbox-img {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* Typing Animation - FIXED FOR MOBILE */
+        .typing-container {
+            display: flex;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        .typing-text {
+            display: inline;
+            border-right: 3px solid #A855F7;
+            padding-right: 4px;
+        }
+
+        .visible .typing-text {
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        /* VS Circle Styling */
+        .vs-circle {
+            background: linear-gradient(to right, #A855F7, #EC4899);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+        }
+
+        /* Custom border gradient for active cards */
+        .active-card-border {
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 1.5rem;
+            z-index: 1;
+        }
+        .active-card-border::before {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(to right, #A855F7, #EC4899);
+            border-radius: 1.5rem;
+            z-index: -1;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased overflow-x-hidden">
+
+    <!-- FAIXA ANIMADA NO TOPO -->
+    <div class="relative overflow-hidden bg-gradient-to-r from-primary to-secondary py-2.5 shadow-xl z-50">
+        <div class="animate-marquee whitespace-nowrap">
+            <span class="text-sm md:text-base font-bold text-white px-8">O livro didático não foi feito pra competir com o TikTok. Suas atividades precisam. ⚡ 🔥</span>
+            <span class="text-sm md:text-base font-bold text-white px-8">O livro didático não foi feito pra competir com o TikTok. Suas atividades precisam. ⚡ 🔥</span>
+            <span class="text-sm md:text-base font-bold text-white px-8">O livro didático não foi feito pra competir com o TikTok. Suas atividades precisam. ⚡ 🔥</span>
+        </div>
+    </div>
+
+    <!-- [1. HEADLINE / HERO SECTION] -->
+    <header class="relative min-h-[90vh] flex flex-col items-center justify-center text-center px-4 md:px-6 overflow-hidden pt-12">
+        <div class="blob w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-primary top-[-10%] left-[-10%]" style="animation-delay: 0s;"></div>
+        <div class="blob w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-secondary bottom-[-10%] right-[-10%]" style="animation-delay: -5s;"></div>
+        
+        <div class="relative z-10 max-w-4xl flex flex-col items-center justify-center">
+            <h1 class="headline-glow text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8 leading-tight">
+                O livro didático não foi feito pra competir com o <span class="tiktok-glitch" data-text="TikTok">TikTok.</span>
+            </h1>
+            <p class="animate-pulse-text text-2xl md:text-4xl font-black text-gradient uppercase tracking-wide">
+                Suas atividades precisam.
+            </p>
+            
+            <a href="#preco" class="cta-wow text-white text-lg md:text-xl font-bold py-5 px-10 rounded-full inline-flex items-center justify-center gap-3 mt-12 shadow-lg w-full md:w-auto">
+                QUERO CRIAR AULAS QUE FAZEM SENTIDO
+                <i class="fa-solid fa-rocket"></i>
+            </a>
+
+            <div class="mt-10 flex flex-col md:flex-row items-center justify-center gap-4 text-text-muted text-sm md:text-base font-semibold">
+                <div class="flex items-center -space-x-2 md:-space-x-3">
+                    <img src="https://i.pravatar.cc/40?img=1" alt="Avatar" class="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white object-cover">
+                    <img src="https://i.pravatar.cc/40?img=5" alt="Avatar" class="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white object-cover">
+                    <img src="https://i.pravatar.cc/40?img=9" alt="Avatar" class="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white object-cover">
+                    <img src="https://i.pravatar.cc/40?img=12" alt="Avatar" class="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white object-cover">
+                    <img src="https://i.pravatar.cc/40?img=16" alt="Avatar" class="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white object-cover">
+                </div>
+                <span class="text-center">⭐ +1000 professoras já transformaram suas aulas</span>
+            </div>
+
+            <div class="relative mt-16 animate-bounce opacity-50 flex flex-col items-center justify-center">
+                <i class="fa-solid fa-chevron-down text-3xl md:text-4xl text-white"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- [2. ABERTURA — DOR] -->
+    <section class="py-24 px-4 relative overflow-hidden bg-bg-dark text-center">
+        <div class="max-w-3xl mx-auto space-y-12">
+            <div class="fade-in-up">
+                <p class="text-text-muted text-lg md:text-xl font-medium uppercase tracking-[0.2em] mb-2">Você fala.</p>
+                <h3 class="text-3xl md:text-5xl font-black text-text-main dor-glow tracking-tight">Ele olha pro nada.</h3>
+            </div>
+            <div class="fade-in-up w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full opacity-30"></div>
+            <div class="fade-in-up">
+                <p class="text-xl md:text-2xl text-text-muted leading-relaxed">
+                    Você entrega a atividade. <br> 
+                    Ele faz no automático. <br> 
+                    <span class="text-gradient font-black">Sem ler direito. Sem pensar.</span> <br> 
+                    Só pra te entregar logo.
+                </p>
+            </div>
+            <div class="fade-in-up gradient-border-box p-8 md:p-12 glass-card shadow-2xl relative">
+                <p class="text-2xl md:text-4xl font-black italic leading-tight text-white headline-glow">
+                    "Atividade que dá sono não ensina. Só ocupa tempo." 💤
+                </p>
+            </div>
+            <div class="fade-in-up">
+                <p class="text-xl md:text-2xl text-text-muted">
+                    E você sabe disso. <br> 
+                    Mas o livro <span class="text-text-main font-bold border-b-2 border-secondary/50">não te dá outra opção.</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- [3. ESPELHO — RECONHECIMENTO] -->
+    <section class="py-24 px-4 bg-white/[0.02] flex flex-col items-center">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-5Font-black mb-16 italic text-gradient fade-in-up">
+                Seja honesta: quantas vezes você já fez isso?
+            </h2>
+            <div class="w-full max-w-3xl space-y-4 mb-16 mx-auto">
+                <div class="fade-in-up search-bar-premium flex items-center p-4 md:p-5 rounded-full shadow-lg gap-4">
+                    <i class="fa-solid fa-magnifying-glass text-primary text-xl ml-2"></i>
+                    <span class="text-text-muted font-mono text-sm md:text-lg flex-1">"Atividade criativa sobre Revolução Industrial PDF"</span>
+                </div>
+                <div class="fade-in-up search-bar-premium flex items-center p-4 md:p-5 rounded-full shadow-lg gap-4">
+                    <i class="fa-solid fa-magnifying-glass text-secondary text-xl ml-2"></i>
+                    <span class="text-text-muted font-mono text-sm md:text-lg flex-1">"Dinâmica para aula de frações"</span>
+                </div>
+                <div class="fade-in-up search-bar-premium flex items-center p-4 md:p-5 rounded-full shadow-lg gap-4">
+                    <i class="fa-solid fa-magnifying-glass text-primary text-xl ml-2"></i>
+                    <span class="text-text-muted font-mono text-sm md:text-lg flex-1">"Atividade pronta ensino fundamental"</span>
+                </div>
+            </div>
+            <div class="text-center space-y-6 fade-in-up">
+                <p class="text-xl md:text-2xl text-text-muted max-w-2xl mx-auto">
+                    Abre 15 abas. Baixa 3 arquivos. Nenhum serve direito.
+                </p>
+                <p class="text-2xl md:text-3xl font-light leading-relaxed">
+                    Aí você adapta, recorta, reformata... <br class="hidden md:block">
+                    E quando vê, <span class="text-gradient font-black underline decoration-primary/30">seu domingo foi embora.</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- [4. PROBLEMA REAL] -->
+    <section class="py-24 px-4 max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl md:text-5xl font-black mb-4 text-gradient fade-in-up italic">O problema não é você.</h2>
+        <p class="text-xl text-center mb-10 text-text-muted fade-in-up">É que o livro didático não foi feito pra 2026.</p>
+        
+        <p class="text-lg md:text-xl text-text-main font-medium mb-12 fade-in-up">Ele não sabe que seu aluno:</p>
+
+        <div class="grid md:grid-cols-3 gap-8 mb-16">
+            <div class="fade-in-up card-problem-hover p-8 rounded-3xl glass-card border-b-4 border-primary">
+                <i class="fa-solid fa-bolt text-4xl text-primary mb-6"></i>
+                <p class="font-semibold text-main">Consome vídeo de 30 segundos</p>
+            </div>
+            <div class="fade-in-up card-problem-hover p-8 rounded-3xl glass-card border-b-4 border-secondary">
+                <i class="fa-solid fa-heart text-4xl text-secondary mb-6"></i>
+                <p class="font-semibold text-main">Só engaja com o que faz sentido pra vida dele</p>
+            </div>
+            <div class="fade-in-up card-problem-hover p-8 rounded-3xl glass-card border-b-4 border-primary">
+                <i class="fa-solid fa-ban text-4xl text-primary mb-6"></i>
+                <p class="font-semibold text-main">Ignora tudo que parece "coisa de escola chata"</p>
+            </div>
+        </div>
+        
+        <div class="space-y-4 mb-12 fade-in-up text-text-muted">
+            <p class="text-xl md:text-2xl">O livro organiza conteúdo.</p>
+            <p class="text-xl md:text-2xl">Mas não cria pertencimento.</p>
+        </div>
+
+        <div class="p-8 bg-white/5 rounded-2xl italic text-2xl font-light text-text-muted fade-in-up border-l-4 border-secondary/50 shadow-2xl">
+            "E sem pertencimento, o aluno finge que você não existe."
+        </div>
+    </section>
+
+    <!-- [5. VIRADA — SOLUÇÃO] -->
+    <section class="py-24 px-4 bg-primary/5 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-black mb-10 fade-in-up">E se existisse uma ferramenta que criasse atividades que <span class="text-gradient">seu aluno QUER fazer?</span></h2>
+            
+            <div class="space-y-2 mb-8 text-text-muted italic fade-in-up">
+                <p>Não atividade genérica de apostila.</p>
+                <p>Não PDF requentado do Google.</p>
+            </div>
+
+            <p class="text-xl font-bold mb-8 fade-in-up text-main">Atividade com:</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="fade-in-up glass-card p-6 rounded-2xl flex items-center gap-4 card-problem-hover text-left">
+                    <span class="text-3xl shrink-0">🤝</span>
+                    <p><span class="font-bold text-main">Pertencimento</span> — <span class="text-text-muted">o aluno se vê na proposta</span></p>
+                </div>
+                <div class="fade-in-up glass-card p-6 rounded-2xl flex items-center gap-4 card-problem-hover text-left">
+                    <span class="text-3xl shrink-0">💬</span>
+                    <p><span class="font-bold text-main">Linguagem da juventude</span> — <span class="text-text-muted">ele entende e se conecta</span></p>
+                </div>
+                <div class="fade-in-up glass-card p-6 rounded-2xl flex items-center gap-4 card-problem-hover text-left">
+                    <span class="text-3xl shrink-0">🧠</span>
+                    <p><span class="font-bold text-main">Pensamento crítico</span> — <span class="text-text-muted">não é responder, é se posicionar</span></p>
+                </div>
+                <div class="fade-in-up glass-card p-6 rounded-2xl flex items-center gap-4 card-problem-hover text-left">
+                    <span class="text-3xl shrink-0">📋</span>
+                    <p><span class="font-bold text-main">Alinhamento à BNCC</span> — <span class="text-text-muted">você segue o currículo sem virar robô</span></p>
+                </div>
+                <div class="fade-in-up glass-card p-6 rounded-2xl flex items-center gap-4 card-problem-hover text-left">
+                    <span class="text-3xl shrink-0">🎯</span>
+                    <p><span class="font-bold text-main">Metodologias ativas</span> — <span class="text-text-muted">o aluno faz, não só recebe</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [6. PRODUTO] -->
+    <section class="py-28 px-4 text-center overflow-hidden">
+        <div class="max-w-5xl mx-auto flex flex-col items-center">
+            <span class="uppercase tracking-[0.3em] text-primary font-bold mb-4 block fade-in-up flex items-center justify-center gap-2">
+                ✨ <span class="text-sm">APRESENTAMOS O</span> ✨
+            </span>
+            <h2 class="text-5xl md:text-8xl font-black mb-4 italic tracking-tighter fade-in-up product-title-gradient pb-2">
+                Aula Fora do Script
+            </h2>
+            <div class="h-1.5 w-32 md:w-48 bg-gradient-to-r from-[#00F5FF] via-primary to-secondary mx-auto rounded-full mb-12 fade-in-up shadow-[0_0_15px_rgba(168,85,247,0.5)]"></div>
+            
+            <p class="text-xl md:text-2xl mb-12 text-text-muted fade-in-up max-w-2xl">Um assistente pedagógico com inteligência artificial que cria atividades que o livro didático nunca vai ter.</p>
+            
+            <h3 class="text-2xl md:text-3xl font-bold mb-10 fade-in-up text-white/90">Como funciona:</h3>
+
+            <div class="grid md:grid-cols-4 gap-6 text-left w-full mb-20 mx-auto">
+                <div class="fade-in-up glass-card p-8 rounded-3xl border-t-4 border-primary hover:-translate-y-2 transition-transform">
+                    <div class="text-5xl mb-6 font-black opacity-10">01</div>
+                    <p class="font-bold leading-tight">Você informa o tema e a série</p>
+                </div>
+                <div class="fade-in-up glass-card p-8 rounded-3xl border-t-4 border-secondary hover:-translate-y-2 transition-transform">
+                    <div class="text-5xl mb-6 font-black opacity-10">02</div>
+                    <p class="font-bold leading-tight">O assistente cria a atividade personalizada pra sua turma</p>
+                </div>
+                <div class="fade-in-up glass-card p-8 rounded-3xl border-t-4 border-primary hover:-translate-y-2 transition-transform">
+                    <div class="text-5xl mb-6 font-black opacity-10">03</div>
+                    <p class="font-bold leading-tight">Ele mostra onde entra o pertencimento, onde o aluno se posiciona, onde o pensamento crítico acontece</p>
+                </div>
+                <div class="fade-in-up glass-card p-8 rounded-3xl border-t-4 border-secondary hover:-translate-y-2 transition-transform">
+                    <div class="text-5xl mb-6 font-black opacity-10">04</div>
+                    <p class="font-bold leading-tight">Você adapta se quiser — e aplica</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center justify-center gap-6 fade-in-up w-full max-w-4xl mx-auto">
+                <div class="px-8 py-6 glass-card rounded-2xl flex flex-col items-center text-center border border-primary/20 hover:scale-105 transition-transform cursor-default shadow-xl shadow-primary/5 w-full md:w-64">
+                    <span class="text-[10px] md:text-xs text-text-muted uppercase tracking-[0.2em] font-bold mb-3">Tempo?</span>
+                    <div class="flex items-center justify-center gap-2">
+                        <span class="text-2xl">⏱️</span>
+                        <span class="text-white font-black text-lg leading-tight">Menos de 3 minutos.</span>
+                    </div>
+                </div>
+                <div class="px-8 py-6 glass-card rounded-2xl flex flex-col items-center text-center border border-secondary/20 hover:scale-105 transition-transform cursor-default shadow-xl shadow-secondary/5 w-full md:w-64">
+                    <span class="text-[10px] md:text-xs text-text-muted uppercase tracking-[0.2em] font-bold mb-3">Atividades?</span>
+                    <div class="flex items-center justify-center gap-2">
+                        <span class="text-2xl">♾️</span>
+                        <span class="text-white font-black text-lg leading-tight">Ilimitadas.</span>
+                    </div>
+                </div>
+                <div class="px-8 py-6 glass-card rounded-2xl flex flex-col items-center text-center border border-primary/20 hover:scale-105 transition-transform cursor-default shadow-xl shadow-primary/5 w-full md:w-64">
+                    <span class="text-[10px] md:text-xs text-text-muted uppercase tracking-[0.2em] font-bold mb-3">Resultado?</span>
+                    <div class="flex items-center justify-center gap-2">
+                        <span class="text-2xl">🙋</span>
+                        <span class="text-white font-black text-lg leading-tight">Aluno que levanta a cabeça.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [7. PROVA - COM INPUT DE IA ESTILIZADO] -->
+    <section class="py-24 px-4 bg-white/[0.03] overflow-hidden">
+        <div class="max-w-6xl mx-auto flex flex-col items-center text-center">
+            <h2 class="text-4xl md:text-6xl font-extrabold mb-16 fade-in-up">
+                Imagina sua <span class="text-gradient font-black italic">próxima semana</span> assim:
+            </h2>
+            
+            <div class="w-full max-w-3xl mx-auto mb-20 fade-in-up" id="typing-trigger">
+                <div class="space-y-6 text-left">
+                    <p class="text-xl md:text-2xl text-text-muted font-medium">Segunda, 6h da manhã.</p>
+                    <p class="text-xl md:text-2xl text-text-muted font-medium">Você abre o assistente.</p>
+                    <p class="text-xl md:text-2xl text-text-muted font-medium mb-4">Digita:</p>
+                    
+                    <!-- INPUT DE IA ESTILIZADO -->
+                    <div class="bg-[#18181b] p-5 md:p-6 rounded-2xl border border-[#333] shadow-2xl relative group overflow-hidden">
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center shrink-0 shadow-lg mt-0.5">
+                                <i class="fa-solid fa-sparkles text-white text-xs md:text-sm"></i>
+                            </div>
+                            <div class="typing-container font-mono text-base md:text-xl text-[#e5e5e5] w-full">
+                                <span class="typing-text" data-typewriter-text='"Atividade sobre o Golpe de 64 para o 9º ano."'></span>
+                            </div>
+                        </div>
+                        <div class="absolute right-6 bottom-5 opacity-30 hidden md:block">
+                            <i class="fa-solid fa-arrow-up text-white text-lg"></i>
+                        </div>
+                    </div>
+                </div>
+                <p class="mt-16 text-2xl md:text-4xl font-light text-text-muted leading-relaxed">
+                    Em <span class="text-white font-black italic pb-1" style="border-bottom: 4px solid; border-image: linear-gradient(to right, #A855F7, #EC4899) 1;">segundos</span>, você recebe isso:
+                </p>
+            </div>
+
+            <!-- CARROSSEL COM LIGHTBOX -->
+            <div class="relative w-full max-w-6xl mx-auto fade-in-up group px-4">
+                <button id="prevBtn" class="absolute left-0 top-1/2 -translate-y-1/2 z-30 w-12 md:w-16 h-12 md:h-16 rounded-full bg-black/60 backdrop-blur-lg border border-white/10 flex items-center justify-center text-white hover:bg-primary transition-all shadow-2xl -ml-2 md:-ml-8 opacity-0 group-hover:opacity-100">
+                    <i class="fa-solid fa-chevron-left text-xl"></i>
+                </button>
+                <button id="nextBtn" class="absolute right-0 top-1/2 -translate-y-1/2 z-30 w-12 md:w-16 h-12 md:h-16 rounded-full bg-black/60 backdrop-blur-lg border border-white/10 flex items-center justify-center text-white hover:bg-secondary transition-all shadow-2xl -mr-2 md:-mr-8 opacity-0 group-hover:opacity-100">
+                    <i class="fa-solid fa-chevron-right text-xl"></i>
+                </button>
+
+                <div id="image-carousel" class="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-hide pb-8">
+                    <!-- Slides -->
+                    <div class="carousel-item flex-none w-80 md:w-96 snap-start">
+                        <div class="group relative bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/10 shadow-2xl cursor-pointer transition-all hover:scale-[1.02] hover:shadow-primary/20" onclick="openLightbox(0)">
+                            <img src="https://i.postimg.cc/LsVDGFcV/1.jpg" class="w-full aspect-square object-contain bg-black" alt="Atividade exemplo">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <i class="fa-solid fa-magnifying-glass-plus text-white text-4xl"></i>
+                            </div>
+                            <div class="p-4 text-center">
+                                <p class="text-[10px] text-text-muted uppercase tracking-widest font-bold">Clique para ampliar</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item flex-none w-80 md:w-96 snap-start">
+                        <div class="group relative bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/10 shadow-2xl cursor-pointer transition-all hover:scale-[1.02] hover:shadow-secondary/20" onclick="openLightbox(1)">
+                            <img src="https://i.postimg.cc/5tmgDWhp/2.jpg" class="w-full aspect-square object-contain bg-black" alt="Atividade exemplo">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <i class="fa-solid fa-magnifying-glass-plus text-white text-4xl"></i>
+                            </div>
+                            <div class="p-4 text-center">
+                                <p class="text-[10px] text-text-muted uppercase tracking-widest font-bold">Clique para ampliar</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item flex-none w-80 md:w-96 snap-start">
+                        <div class="group relative bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/10 shadow-2xl cursor-pointer transition-all hover:scale-[1.02] hover:shadow-primary/20" onclick="openLightbox(2)">
+                            <img src="https://i.postimg.cc/6QhcFxkY/3.jpg" class="w-full aspect-square object-contain bg-black" alt="Atividade exemplo">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <i class="fa-solid fa-magnifying-glass-plus text-white text-4xl"></i>
+                            </div>
+                            <div class="p-4 text-center">
+                                <p class="text-[10px] text-text-muted uppercase tracking-widest font-bold">Clique para ampliar</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item flex-none w-80 md:w-96 snap-start">
+                        <div class="group relative bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/10 shadow-2xl cursor-pointer transition-all hover:scale-[1.02] hover:shadow-secondary/20" onclick="openLightbox(3)">
+                            <img src="https://i.postimg.cc/tgzk8GKm/4.jpg" class="w-full aspect-square object-contain bg-black" alt="Atividade exemplo">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <i class="fa-solid fa-magnifying-glass-plus text-white text-4xl"></i>
+                            </div>
+                            <div class="p-4 text-center">
+                                <p class="text-[10px] text-text-muted uppercase tracking-widest font-bold">Clique para ampliar</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item flex-none w-80 md:w-96 snap-start">
+                        <div class="group relative bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/10 shadow-2xl cursor-pointer transition-all hover:scale-[1.02] hover:shadow-primary/20" onclick="openLightbox(4)">
+                            <img src="https://i.postimg.cc/k5ysLP0H/5.jpg" class="w-full aspect-square object-contain bg-black" alt="Atividade exemplo">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <i class="fa-solid fa-magnifying-glass-plus text-white text-4xl"></i>
+                            </div>
+                            <div class="p-4 text-center">
+                                <p class="text-[10px] text-text-muted uppercase tracking-widest font-bold">Clique para ampliar</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item flex-none w-80 md:w-96 snap-start">
+                        <div class="group relative bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/10 shadow-2xl cursor-pointer transition-all hover:scale-[1.02] hover:shadow-secondary/20" onclick="openLightbox(5)">
+                            <img src="https://i.postimg.cc/vmvhCwJt/6.jpg" class="w-full aspect-square object-contain bg-black" alt="Atividade exemplo">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <i class="fa-solid fa-magnifying-glass-plus text-white text-4xl"></i>
+                            </div>
+                            <div class="p-4 text-center">
+                                <p class="text-[10px] text-text-muted uppercase tracking-widest font-bold">Clique para ampliar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Indicadores -->
+                <div id="indicators" class="flex justify-center items-center gap-3 mt-4">
+                    <button class="indicator-dot w-3 h-3 rounded-full bg-text-muted transition-all duration-300 active-dot" data-index="0"></button>
+                    <button class="indicator-dot w-3 h-3 rounded-full bg-text-muted transition-all duration-300" data-index="1"></button>
+                    <button class="indicator-dot w-3 h-3 rounded-full bg-text-muted transition-all duration-300" data-index="2"></button>
+                    <button class="indicator-dot w-3 h-3 rounded-full bg-text-muted transition-all duration-300" data-index="3"></button>
+                    <button class="indicator-dot w-3 h-3 rounded-full bg-text-muted transition-all duration-300" data-index="4"></button>
+                    <button class="indicator-dot w-3 h-3 rounded-full bg-text-muted transition-all duration-300" data-index="5"></button>
+                </div>
+            </div>
+
+            <div class="mt-20 space-y-4 fade-in-up flex flex-col items-center">
+                <p class="text-2xl md:text-4xl font-black">
+                    Essas atividades foram criadas <span class="text-gradient font-black italic">em segundos.</span>
+                </p>
+                <p class="text-xl md:text-2xl text-text-muted font-medium">
+                    Sem edição. Direto do assistente pra sala de aula.
+                </p>
+                
+                <!-- CTA DE PROVA -->
+                <div class="mt-10 flex flex-col items-center">
+                    <a href="https://pay.hotmart.com/F102252011M" target="_blank" onclick="fbq('track', 'InitiateCheckout');" class="cta-wow text-white text-xl md:text-2xl font-bold py-5 px-10 rounded-full inline-flex items-center justify-center gap-3 shadow-lg hover:scale-105 transition-all">
+                        Quero criar assim também
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </a>
+                    <p class="mt-4 text-text-muted text-sm font-medium tracking-wide">
+                        ✨ Acesso imediato após a compra
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Lightbox Interativo -->
+    <div id="lightbox" class="fixed inset-0 bg-black/95 z-[9999] hidden items-center justify-center p-4 backdrop-blur-md" onclick="closeLightbox()">
+        <button onclick="closeLightbox(); event.stopPropagation();" class="absolute top-6 right-6 text-white text-5xl hover:text-secondary transition-all z-[10000]">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        
+        <button onclick="prevLightbox(); event.stopPropagation();" class="absolute left-4 top-1/2 -translate-y-1/2 text-white text-4xl md:text-6xl hover:text-primary transition-all p-4 z-[10000]">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        
+        <button onclick="nextLightbox(); event.stopPropagation();" class="absolute right-4 top-1/2 -translate-y-1/2 text-white text-4xl md:text-6xl hover:text-secondary transition-all p-4 z-[10000]">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+        <div class="relative max-w-5xl max-h-[85vh] flex items-center justify-center" onclick="event.stopPropagation()">
+            <img id="lightbox-img" src="" class="w-auto h-auto max-w-full max-h-[85vh] object-contain rounded-lg shadow-[0_0_50px_rgba(168,85,247,0.3)]" alt="Zoom da atividade">
+        </div>
+    </div>
+
+    <!-- [8. COMPARATIVO - REFEITO] -->
+    <section class="py-28 px-4 max-w-6xl mx-auto overflow-hidden">
+        <div class="text-center mb-24 fade-in-up">
+            <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-none mb-4">
+                ATIVIDADE DO LIVRO
+            </h2>
+            <p class="text-text-muted text-xl md:text-2xl font-normal lowercase tracking-widest italic my-4 block">
+                versus
+            </p>
+            <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-none text-gradient italic">
+                AULA FORA DO SCRIPT
+            </h2>
+        </div>
+
+        <div class="space-y-12 md:space-y-16">
+            <!-- COMPARAÇÃO 1 -->
+            <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-0 fade-in-up">
+                <!-- Card Livro -->
+                <div class="w-full md:w-1/2 bg-zinc-900/50 border border-zinc-800 p-8 rounded-3xl md:rounded-r-none opacity-60 grayscale hover:grayscale-0 transition-all duration-500 group">
+                    <div class="flex items-center gap-3 mb-4 text-zinc-500">
+                        <i class="fa-solid fa-book text-2xl"></i>
+                        <span class="font-bold uppercase tracking-widest text-sm">Livro Tradicional</span>
+                    </div>
+                    <p class="text-zinc-400 italic text-lg md:text-xl font-medium leading-relaxed">
+                        "Responda as questões sobre o texto"
+                    </p>
+                </div>
+                
+                <!-- VS Element -->
+                <div class="vs-circle w-12 h-12 rounded-full flex items-center justify-center z-10 -my-4 md:-mx-6 md:my-0 shrink-0">
+                    <span class="text-white font-black text-sm italic">VS</span>
+                </div>
+
+                <!-- Card Aula Fora do Script -->
+                <div class="w-full md:w-1/2 active-card-border p-8 rounded-3xl md:rounded-l-none border-primary/20 shadow-2xl transition-all duration-500 hover:scale-[1.02]">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-star text-secondary text-2xl animate-pulse"></i>
+                        <span class="font-black uppercase tracking-widest text-sm text-secondary">Aula Fora do Script</span>
+                    </div>
+                    <p class="text-white text-xl md:text-2xl font-black leading-tight italic">
+                        "Você é o advogado de defesa do personagem. Convença a turma de que ele estava certo."
+                    </p>
+                </div>
+            </div>
+
+            <!-- COMPARAÇÃO 2 -->
+            <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-0 fade-in-up">
+                <!-- Card Livro -->
+                <div class="w-full md:w-1/2 bg-zinc-900/50 border border-zinc-800 p-8 rounded-3xl md:rounded-r-none opacity-60 grayscale hover:grayscale-0 transition-all duration-500 group">
+                    <div class="flex items-center gap-3 mb-4 text-zinc-500">
+                        <i class="fa-solid fa-calculator text-2xl"></i>
+                        <span class="font-bold uppercase tracking-widest text-sm">Livro Tradicional</span>
+                    </div>
+                    <p class="text-zinc-400 italic text-lg md:text-xl font-medium leading-relaxed">
+                        "Calcule a porcentagem"
+                    </p>
+                </div>
+                
+                <!-- VS Element -->
+                <div class="vs-circle w-12 h-12 rounded-full flex items-center justify-center z-10 -my-4 md:-mx-6 md:my-0 shrink-0">
+                    <span class="text-white font-black text-sm italic">VS</span>
+                </div>
+
+                <!-- Card Aula Fora do Script -->
+                <div class="w-full md:w-1/2 active-card-border p-8 rounded-3xl md:rounded-l-none border-secondary/20 shadow-2xl transition-all duration-500 hover:scale-[1.02]">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-wand-magic-sparkles text-primary text-2xl"></i>
+                        <span class="font-black uppercase tracking-widest text-sm text-primary">Aula Fora do Script</span>
+                    </div>
+                    <p class="text-white text-xl md:text-2xl font-black leading-tight italic">
+                        "Você tem R$ 150 pra montar o look da formatura. Qual loja tem o melhor desconto real?"
+                    </p>
+                </div>
+            </div>
+
+            <!-- COMPARAÇÃO 3 -->
+            <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-0 fade-in-up">
+                <!-- Card Livro -->
+                <div class="w-full md:w-1/2 bg-zinc-900/50 border border-zinc-800 p-8 rounded-3xl md:rounded-r-none opacity-60 grayscale hover:grayscale-0 transition-all duration-500 group">
+                    <div class="flex items-center gap-3 mb-4 text-zinc-500">
+                        <i class="fa-solid fa-book text-2xl"></i>
+                        <span class="font-bold uppercase tracking-widest text-sm">Livro Tradicional</span>
+                    </div>
+                    <p class="text-zinc-400 italic text-lg md:text-xl font-medium leading-relaxed">
+                        "Cite 3 causas da Revolução Industrial"
+                    </p>
+                </div>
+                
+                <!-- VS Element -->
+                <div class="vs-circle w-12 h-12 rounded-full flex items-center justify-center z-10 -my-4 md:-mx-6 md:my-0 shrink-0">
+                    <span class="text-white font-black text-sm italic">VS</span>
+                </div>
+
+                <!-- Card Aula Fora do Script -->
+                <div class="w-full md:w-1/2 active-card-border p-8 rounded-3xl md:rounded-l-none border-primary/20 shadow-2xl transition-all duration-500 hover:scale-[1.02]">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-mobile-screen text-secondary text-2xl"></i>
+                        <span class="font-black uppercase tracking-widest text-sm text-secondary">Aula Fora do Script</span>
+                    </div>
+                    <p class="text-white text-xl md:text-2xl font-black leading-tight italic">
+                        "Se a Revolução Industrial tivesse um Instagram, o que ela postaria nos stories?"
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-20 text-center fade-in-up">
+            <p class="text-2xl md:text-4xl font-light text-text-muted leading-relaxed">
+                Qual dessas faz seu aluno <span class="text-gradient font-black italic">levantar a cabeça?</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- [9. ANCORAGEM DE PREÇO] -->
+    <section class="py-24 px-4 bg-white/5 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-black mb-10 italic fade-in-up">Quanto você já gastou tentando resolver isso?</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+                <div class="p-6 glass-card rounded-2xl fade-in-up"><p class="font-black text-2xl">R$ 50</p><p class="text-xs text-text-muted">Apostila Insta</p></div>
+                <div class="p-6 glass-card rounded-2xl fade-in-up" data-delay="100"><p class="font-black text-2xl">R$ 47</p><p class="text-xs text-text-muted">Kit Hotmart</p></div>
+                <div class="p-6 glass-card rounded-2xl fade-in-up" data-delay="200"><p class="font-black text-2xl">R$ 29</p><p class="text-xs text-text-muted">Slides</p></div>
+                <div class="p-6 glass-card rounded-2xl fade-in-up" data-delay="300"><p class="font-black text-2xl">R$ 19/mês</p><p class="text-xs text-text-muted">Assinatura</p></div>
+            </div>
+            <p class="text-xl md:text-2xl text-text-muted mb-8 fade-in-up">Tudo genérico. Feito pra qualquer turma — menos a sua.</p>
+            <div class="inline-block p-1 bg-gradient-to-r from-primary to-secondary rounded-full fade-in-up">
+                <div class="bg-bg-dark px-10 py-6 rounded-full">
+                    <p class="text-2xl font-black">Pague <span class="text-primary italic">uma vez</span> e crie atividades ilimitadas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [10. BÔNUS - REFEITO COM COPY COMPLETA] -->
+    <section class="py-28 px-4 max-w-6xl mx-auto">
+        <div class="text-center mb-16 fade-in-up">
+            <p class="text-text-muted italic text-lg mb-2">Mas espera...</p>
+            <h2 class="text-4xl md:text-6xl font-black mb-4">Você não vai levar só o assistente. 🎁</h2>
+            <p class="text-xl text-text-muted">Quem garantir o acesso hoje leva também:</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Card Bônus 1 -->
+            <div class="p-8 bg-zinc-900 border border-primary/20 rounded-[2rem] hover:border-primary transition-all group fade-in-up relative overflow-hidden shadow-2xl flex flex-col h-full">
+                 <div class="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 blur-[80px] rounded-full group-hover:bg-primary/20 transition-colors"></div>
+
+                 <div class="mb-6">
+                    <span class="inline-block bg-primary text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase shadow-lg shadow-primary/20">BÔNUS 1</span>
+                 </div>
+
+                 <div class="flex items-start gap-4 mb-6">
+                    <i class="fa-solid fa-circle-play text-4xl text-primary mt-1 flex-shrink-0"></i>
+                    <h3 class="text-2xl font-black text-white leading-tight">Aula prática: Como usar o assistente do zero</h3>
+                 </div>
+
+                 <p class="text-text-muted text-lg mb-8 leading-relaxed flex-grow">
+                    Vídeo direto ao ponto mostrando como tirar o máximo da ferramenta. Mesmo que você nunca tenha usado IA, vai sair criando atividades em minutos.
+                 </p>
+
+                 <div class="flex flex-col gap-1 mt-auto pt-6 border-t border-white/5">
+                     <del class="text-text-muted font-medium italic">Valor: R$ 47</del>
+                     <div class="flex items-center gap-2">
+                         <span class="text-2xl font-black text-green-500">Grátis pra você</span>
+                         <i class="fa-solid fa-circle-check text-green-500 text-xl"></i>
+                     </div>
+                 </div>
+            </div>
+
+            <!-- Card Bônus 2 -->
+            <div class="p-8 bg-zinc-900 border border-secondary/20 rounded-[2rem] hover:border-secondary transition-all group fade-in-up relative overflow-hidden shadow-2xl flex flex-col h-full">
+                 <div class="absolute -top-24 -right-24 w-48 h-48 bg-secondary/10 blur-[80px] rounded-full group-hover:bg-secondary/20 transition-colors"></div>
+
+                 <div class="mb-6">
+                    <span class="inline-block bg-secondary text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase shadow-lg shadow-secondary/20">BÔNUS 2</span>
+                 </div>
+
+                 <div class="flex items-start gap-4 mb-6">
+                    <i class="fa-solid fa-book text-4xl text-secondary mt-1 flex-shrink-0"></i>
+                    <h3 class="text-2xl font-black text-white leading-tight">Ebook: 40 Prompts Poderosos para Professores</h3>
+                 </div>
+
+                 <p class="text-text-muted text-lg mb-8 leading-relaxed flex-grow">
+                    O "copiar e colar" que economiza horas. São 40 comandos prontos pra você usar no ChatGPT, Gemini ou em qualquer IA — adaptados pra realidade da sala de aula brasileira.
+                 </p>
+
+                 <div class="flex flex-col gap-1 mt-auto pt-6 border-t border-white/5">
+                     <del class="text-text-muted font-medium italic">Valor: R$ 39</del>
+                     <div class="flex items-center gap-2">
+                         <span class="text-2xl font-black text-green-500">Grátis pra você</span>
+                         <i class="fa-solid fa-circle-check text-green-500 text-xl"></i>
+                     </div>
+                 </div>
+            </div>
+
+            <!-- Card Bônus 3 -->
+            <div class="p-8 bg-zinc-900 border-2 border-primary/40 rounded-[2rem] hover:border-secondary transition-all group fade-in-up relative overflow-hidden shadow-[0_0_40px_rgba(168,85,247,0.15)] flex flex-col h-full">
+                 <div class="absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br from-primary/20 to-secondary/20 blur-[80px] rounded-full group-hover:bg-secondary/20 transition-colors"></div>
+
+                 <div class="mb-6 flex justify-between items-center">
+                    <span class="inline-block bg-gradient-to-r from-primary to-secondary text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase shadow-lg">BÔNUS 3</span>
+                    <span class="text-secondary font-black text-[10px] uppercase tracking-widest animate-pulse">✨ EXCLUSIVO</span>
+                 </div>
+
+                 <div class="flex items-start gap-4 mb-6">
+                    <i class="fa-solid fa-bullseye text-4xl text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary mt-1 flex-shrink-0"></i>
+                    <h3 class="text-2xl font-black text-white leading-tight">Assistente BNCC + SAEB</h3>
+                 </div>
+
+                 <p class="text-text-muted text-lg mb-8 leading-relaxed flex-grow">
+                    Acabou o trabalho de ficar caçando código. Digite o tema ou conteúdo da aula e receba as habilidades da BNCC e descritores do SAEB prontos — é só copiar e colar no planejamento.
+                 </p>
+
+                 <div class="flex flex-col gap-1 mt-auto pt-6 border-t border-white/5">
+                     <del class="text-text-muted font-medium italic">Valor: R$ 67</del>
+                     <div class="flex items-center gap-2">
+                         <span class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-600">Grátis pra você</span>
+                         <i class="fa-solid fa-circle-check text-green-500 text-xl"></i>
+                     </div>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [11. STACK DE VALOR] -->
+    <section class="py-24 px-4 bg-white/5" id="pricing">
+        <div class="max-w-3xl mx-auto glass-card rounded-[40px] p-8 md:p-12 border border-primary/20 fade-in-up">
+            <h2 class="text-3xl font-black mb-10 text-center uppercase italic tracking-tighter">RESUMO DO QUE VOCÊ LEVA:</h2>
+            <ul class="space-y-6 text-lg md:text-xl">
+                <li class="flex justify-between items-center border-b border-white/10 pb-4 gap-4">
+                    <span>Aula Fora do Script (Assistente Ilimitado)</span>
+                    <span class="font-bold text-primary whitespace-nowrap">R$ 67</span>
+                </li>
+                <li class="flex justify-between items-center border-b border-white/10 pb-4 gap-4">
+                    <span>Aula prática em vídeo (Bônus)</span>
+                    <span class="font-bold text-primary whitespace-nowrap">R$ 47</span>
+                </li>
+                <li class="flex justify-between items-center border-b border-white/10 pb-4 gap-4">
+                    <span>Ebook 40 Prompts (Bônus)</span>
+                    <span class="font-bold text-primary whitespace-nowrap">R$ 39</span>
+                </li>
+                <li class="flex justify-between items-center border-b border-white/10 pb-4 gap-4">
+                    <span>Assistente BNCC + SAEB (Bônus)</span>
+                    <span class="font-bold text-primary whitespace-nowrap">R$ 67</span>
+                </li>
+                <li class="flex justify-between items-center pt-6 text-2xl md:text-3xl font-black gap-4">
+                    <span class="uppercase italic">VALOR TOTAL:</span>
+                    <span class="text-secondary line-through opacity-50 whitespace-nowrap">R$ 220</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- [12. OFERTA + CTA] -->
+    <section id="preco" class="py-32 px-4 text-center bg-bg-dark">
+        <div class="max-w-4xl mx-auto">
+            <p class="text-2xl text-text-muted font-bold mb-6 tracking-widest uppercase fade-in-up">Hoje por apenas</p>
+            <h2 class="text-6xl md:text-8xl lg:text-[10rem] font-black mb-12 italic tracking-tighter leading-none fade-in-up text-gradient whitespace-nowrap">R$ 47,90</h2>
+            <p class="text-xl md:text-2xl mb-12 text-text-muted fade-in-up">Menos que uma apostila que você usa duas vezes e joga fora.</p>
+            <a href="https://pay.hotmart.com/F102252011M" target="_blank" onclick="fbq('track', 'InitiateCheckout');" class="cta-wow text-white text-2xl md:text-4xl font-black py-8 px-16 rounded-full inline-block shadow-2xl uppercase tracking-tighter fade-in-up">
+                QUERO CRIAR AULAS QUE FAZEM SENTIDO
+            </a>
+            <p class="mt-8 text-text-muted text-sm font-bold tracking-widest uppercase fade-in-up">Acesso imediato | Garantia de 7 dias</p>
+        </div>
+    </section>
+
+    <!-- [13. PARA QUEM É / NÃO É - PREMIUM VERSION] -->
+    <section class="py-28 px-4 max-w-6xl mx-auto relative overflow-hidden">
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-green-500/5 blur-[120px] rounded-full"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-red-500/5 blur-[120px] rounded-full"></div>
+
+        <div class="grid md:grid-cols-2 gap-12 relative z-10">
+            <!-- Card É PRA VOCÊ -->
+            <div class="fade-in-up group">
+                <div class="h-full glass-card rounded-2xl p-8 md:p-10 border-l-[12px] border-green-500/80 shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-green-500/10">
+                    <h3 class="text-2xl md:text-3xl font-black mb-10 text-green-500 uppercase tracking-tighter italic">
+                        <i class="fa-solid fa-circle-check mr-3 animate-pulse"></i> ISSO É PRA VOCÊ SE:
+                    </h3>
+                    <ul class="space-y-6 text-lg md:text-xl">
+                        <li class="flex gap-5 items-start">
+                            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 mt-0.5">
+                                <i class="fa-solid fa-check text-sm"></i>
+                            </span>
+                            <span class="text-white font-medium leading-snug">Está cansada de aula que o aluno faz no automático</span>
+                        </li>
+                        <li class="flex gap-5 items-start">
+                            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 mt-0.5">
+                                <i class="fa-solid fa-check text-sm"></i>
+                            </span>
+                            <span class="text-white font-medium leading-snug">Quer usar IA com propósito — não como muleta</span>
+                        </li>
+                        <li class="flex gap-5 items-start">
+                            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 mt-0.5">
+                                <i class="fa-solid fa-check text-sm"></i>
+                            </span>
+                            <span class="text-white font-medium leading-snug">Sabe que o livro não basta, mas não tem tempo de inventar tudo</span>
+                        </li>
+                        <li class="flex gap-5 items-start">
+                            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 mt-0.5">
+                                <i class="fa-solid fa-check text-sm"></i>
+                            </span>
+                            <span class="text-white font-medium leading-snug">Acredita que ensinar é humano — e quer voltar a sentir isso</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Card NÃO É PRA VOCÊ -->
+            <div class="fade-in-up group">
+                <div class="h-full glass-card rounded-2xl p-8 md:p-10 border-l-[12px] border-red-500/80 shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-red-500/10">
+                    <h3 class="text-2xl md:text-3xl font-black mb-10 text-red-500 uppercase tracking-tighter italic">
+                        <i class="fa-solid fa-circle-xmark mr-3 opacity-80"></i> ISSO NÃO É PRA VOCÊ SE:
+                    </h3>
+                    <ul class="space-y-6 text-lg md:text-xl">
+                        <li class="flex gap-5 items-start">
+                            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center text-red-500 mt-0.5">
+                                <i class="fa-solid fa-xmark text-sm"></i>
+                            </span>
+                            <span class="text-white font-medium leading-snug">Quer que a IA faça tudo e você só imprime</span>
+                        </li>
+                        <li class="flex gap-5 items-start">
+                            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center text-red-500 mt-0.5">
+                                <i class="fa-solid fa-xmark text-sm"></i>
+                            </span>
+                            <span class="text-white font-medium leading-snug">Acha que atividade "tradicional" ainda funciona</span>
+                        </li>
+                        <li class="flex gap-5 items-start">
+                            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center text-red-500 mt-0.5">
+                                <i class="fa-solid fa-xmark text-sm"></i>
+                            </span>
+                            <span class="text-white font-medium leading-snug">Não está disposta a experimentar algo diferente</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [14. FECHAMENTO EMOCIONAL - PREMIUM VERSION] -->
+    <section class="py-32 px-4 relative overflow-hidden bg-gradient-to-b from-bg-dark via-[#130624] to-bg-dark">
+        <!-- Background decorative glow -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/10 blur-[150px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-3xl mx-auto text-center relative z-10 space-y-10">
+            <div class="fade-in-up">
+                <h2 class="text-3xl md:text-5xl font-black italic text-white headline-glow leading-tight">
+                    Você não virou professora pra ser ignorada.
+                </h2>
+            </div>
+
+            <div class="fade-in-up">
+                <p class="text-lg md:text-2xl text-text-muted leading-relaxed font-medium">
+                    Você virou professora pra provocar pensamento. Movimento. Aprendizagem de verdade.
+                </p>
+            </div>
+
+            <!-- Destaque Especial IA -->
+            <div class="fade-in-up">
+                <div class="relative p-8 md:p-12 glass-card rounded-3xl border-l-4 border-secondary shadow-2xl overflow-hidden group">
+                    <div class="absolute -top-10 -left-10 opacity-5 group-hover:opacity-10 transition-opacity">
+                        <i class="fa-solid fa-quote-left text-9xl text-white"></i>
+                    </div>
+                    <p class="text-xl md:text-2xl italic text-white leading-relaxed font-light relative z-10">
+                        "A inteligência artificial não rouba isso de você. Ela te devolve o que a rotina levou: <span class="text-secondary font-bold">tempo, fôlego e criatividade.</span>"
+                    </p>
+                </div>
+            </div>
+
+            <!-- Frase Final -->
+            <div class="fade-in-up pt-6">
+                <div class="inline-block relative">
+                    <h3 class="text-3xl md:text-5xl font-extrabold text-gradient uppercase tracking-tighter">
+                        A próxima aula pode ser diferente. ✨
+                    </h3>
+                    <div class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary rounded-full"></div>
+                </div>
+            </div>
+
+            <div class="fade-in-up pt-8">
+                <a href="https://pay.hotmart.com/F102252011M" target="_blank" onclick="fbq('track', 'InitiateCheckout');" class="cta-wow text-white text-2xl font-black py-6 px-12 rounded-full inline-flex items-center gap-4 shadow-2xl hover:scale-105 transition-all">
+                    QUERO COMEÇAR AGORA
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <p class="mt-6 text-text-muted text-sm font-bold tracking-widest uppercase">Acesso imediato | Garantia de 7 dias</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- [16. FAQ] -->
+    <section class="py-28 px-4 max-w-3xl mx-auto">
+        <h2 class="text-4xl font-black mb-16 text-center italic fade-in-up">Perguntas Frequentes</h2>
+        <div class="space-y-5">
+            <!-- FAQ 1 -->
+            <div class="faq-item glass-card rounded-3xl cursor-pointer p-8 fade-in-up" onclick="this.classList.toggle('active')">
+                <div class="flex justify-between items-center"><h4 class="text-xl font-black">Funciona pra qual matéria?</h4><i class="fa-solid fa-chevron-down text-primary"></i></div>
+                <div class="faq-answer text-text-muted text-lg">Todas. O assistente adapta pra qualquer disciplina e série.</div>
+            </div>
+            <!-- FAQ 2 -->
+            <div class="faq-item glass-card rounded-3xl cursor-pointer p-8 fade-in-up" onclick="this.classList.toggle('active')">
+                <div class="flex justify-between items-center"><h4 class="text-xl font-black">Preciso saber usar IA?</h4><i class="fa-solid fa-chevron-down text-primary"></i></div>
+                <div class="faq-answer text-text-muted text-lg">Não. O vídeo bônus te ensina do zero.</div>
+            </div>
+            <!-- FAQ 3 -->
+            <div class="faq-item glass-card rounded-3xl cursor-pointer p-8 fade-in-up" onclick="this.classList.toggle('active')">
+                <div class="flex justify-between items-center"><h4 class="text-xl font-black">Posso usar no celular?</h4><i class="fa-solid fa-chevron-down text-primary"></i></div>
+                <div class="faq-answer text-text-muted text-lg">Sim! Funciona em qualquer dispositivo com internet — celular, tablet ou computador. Você pode criar atividades de onde estiver.</div>
+            </div>
+            <!-- FAQ 4 -->
+            <div class="faq-item glass-card rounded-3xl cursor-pointer p-8 fade-in-up" onclick="this.classList.toggle('active')">
+                <div class="flex justify-between items-center"><h4 class="text-xl font-black">As atividades são personalizáveis?</h4><i class="fa-solid fa-chevron-down text-primary"></i></div>
+                <div class="faq-answer text-text-muted text-lg">Totalmente! Você pode pedir ajustes, mudar o nível de dificuldade, adaptar pra turmas inclusivas ou focar em habilidades específicas. O assistente faz do seu jeito.</div>
+            </div>
+            <!-- FAQ 5 -->
+            <div class="faq-item glass-card rounded-3xl cursor-pointer p-8 fade-in-up" onclick="this.classList.toggle('active')">
+                <div class="flex justify-between items-center"><h4 class="text-xl font-black">Recebo atualizações?</h4><i class="fa-solid fa-chevron-down text-primary"></i></div>
+                <div class="faq-answer text-text-muted text-lg">Sim! O assistente é atualizado constantemente com novas funcionalidades. Você terá acesso a todas as melhorias sem pagar nada a mais.</div>
+            </div>
+            <!-- FAQ 6 -->
+            <div class="faq-item glass-card rounded-3xl cursor-pointer p-8 fade-in-up" onclick="this.classList.toggle('active')">
+                <div class="flex justify-between items-center"><h4 class="text-xl font-black">É assinatura?</h4><i class="fa-solid fa-chevron-down text-primary"></i></div>
+                <div class="faq-answer text-text-muted text-lg">Não. Você paga uma única vez e o acesso é vitalício.</div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-20 px-4 text-center border-t border-white/5 bg-black">
+        <h2 class="text-2xl font-black italic tracking-tighter uppercase mb-4 text-gradient">Aula Fora do Script</h2>
+        <p class="text-sm text-text-muted font-medium">© 2026 Transformando a educação através da IA.</p>
+    </footer>
+
+    <!-- Lógica JS -->
+    <script>
+      // Função Typewriter FIXED FOR MOBILE (suporta quebra de linha)
+      function typeWriter(element, text, speed = 50) {
+        let i = 0;
+        element.innerHTML = '';
+        function type() {
+          if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+          }
+        }
+        type();
+      }
+
+      // Intersection Observer para animações de fade e digitação
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            
+            // Verifica se o elemento visível contém o typewriter
+            const typingEl = entry.target.querySelector('[data-typewriter-text]');
+            if (typingEl && !typingEl.dataset.started) {
+                typingEl.dataset.started = 'true';
+                typeWriter(typingEl, typingEl.dataset.typewriterText);
+            }
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+      
+      const typingTrigger = document.getElementById('typing-trigger');
+      if (typingTrigger) observer.observe(typingTrigger);
+
+      // Imagens do Carrossel
+      const images = [
+          'https://i.postimg.cc/LsVDGFcV/1.jpg',
+          'https://i.postimg.cc/5tmgDWhp/2.jpg',
+          'https://i.postimg.cc/6QhcFxkY/3.jpg',
+          'https://i.postimg.cc/tgzk8GKm/4.jpg',
+          'https://i.postimg.cc/k5ysLP0H/5.jpg',
+          'https://i.postimg.cc/vmvhCwJt/6.jpg'
+      ];
+
+      // Lightbox Logic
+      let currentIdx = 0;
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+
+      function openLightbox(index) {
+          currentIdx = index;
+          lightboxImg.src = images[currentIdx];
+          lightbox.classList.remove('hidden');
+          setTimeout(() => lightbox.classList.add('active'), 10);
+          document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+          lightbox.classList.remove('active');
+          setTimeout(() => {
+            lightbox.classList.add('hidden');
+            document.body.style.overflow = '';
+          }, 300);
+      }
+
+      function nextLightbox() {
+          currentIdx = (currentIdx + 1) % images.length;
+          updateLightboxImage();
+      }
+
+      function prevLightbox() {
+          currentIdx = (currentIdx - 1 + images.length) % images.length;
+          updateLightboxImage();
+      }
+
+      function updateLightboxImage() {
+          lightboxImg.style.opacity = 0;
+          lightboxImg.style.transform = 'scale(0.95)';
+          setTimeout(() => {
+              lightboxImg.src = images[currentIdx];
+              lightboxImg.style.opacity = 1;
+              lightboxImg.style.transform = 'scale(1)';
+          }, 150);
+      }
+
+      // Keyboard listeners
+      document.addEventListener('keydown', (e) => {
+          if (!lightbox.classList.contains('hidden')) {
+              if (e.key === 'Escape') closeLightbox();
+              if (e.key === 'ArrowRight') nextLightbox();
+              if (e.key === 'ArrowLeft') prevLightbox();
+          }
+      });
+
+      // Carousel Scroll Logic
+      const carousel = document.getElementById('image-carousel');
+      const dots = document.querySelectorAll('.indicator-dot');
+      const nextBtn = document.getElementById('nextBtn');
+      const prevBtn = document.getElementById('prevBtn');
+
+      function updateDots(index) {
+          dots.forEach((dot, i) => {
+              if (i === index) {
+                  dot.classList.add('active-dot');
+                  dot.classList.remove('bg-text-muted');
+              } else {
+                  dot.classList.remove('active-dot');
+                  dot.classList.add('bg-text-muted');
+              }
+          });
+      }
+
+      function scrollCarousel(direction) {
+          const itemWidth = carousel.querySelector('.carousel-item').offsetWidth + 24; 
+          carousel.scrollBy({ left: direction * itemWidth, behavior: 'smooth' });
+      }
+
+      nextBtn.addEventListener('click', () => scrollCarousel(1));
+      prevBtn.addEventListener('click', () => scrollCarousel(-1));
+
+      carousel.addEventListener('scroll', () => {
+          const itemWidth = carousel.querySelector('.carousel-item').offsetWidth + 24;
+          const index = Math.round(carousel.scrollLeft / itemWidth);
+          if(index >= 0 && index < dots.length) updateDots(index);
+      });
+
+      dots.forEach((dot, i) => {
+          dot.addEventListener('click', () => {
+              const itemWidth = carousel.querySelector('.carousel-item').offsetWidth + 24;
+              carousel.scrollTo({ left: i * itemWidth, behavior: 'smooth' });
+          });
+      });
+    </script>
+</body>
+</html>
